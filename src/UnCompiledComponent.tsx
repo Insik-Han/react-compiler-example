@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
-export default function UnCompiledComponent() {
-  const [message, setMessage] = useState("");
-  const [randomValue, setRandomValue] = useState(null);
+export default function UnCompiledComponent(): ReactNode {
+  const [message, setMessage] = useState<string>("");
+  const [randomValue, setRandomValue] = useState<number | null>(null);
 
-  async function showConsoleLog() {
-    let random = Math.random();
+  async function showConsoleLog(): Promise<void> {
+    const random = Math.random();
     try {
       await new Promise((resolve, reject) =>
-        random > 0.5 ? resolve() : reject(),
+        random > 0.5 ? resolve(undefined) : reject(),
       );
       setMessage("try: UnCompiledComponent log");
       return;

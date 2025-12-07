@@ -20,6 +20,7 @@ Both components have identical functionality (async button click with random num
 - ⚡ **React 19** with latest features
 - 🔧 **React Compiler** integration via Babel plugin
 - 🚀 **Vite** for fast development and building
+- 📘 **TypeScript** for type safety
 - 🎨 **ESLint + Prettier** for code quality
 - 📊 **Compiler Check Script** to verify component compilation
 
@@ -54,7 +55,7 @@ Visit `http://localhost:5173` to see your app.
 ### Build
 
 ```bash
-# Build for production
+# Build for production (includes TypeScript compilation)
 bun run build
 
 # Preview the production build
@@ -65,9 +66,9 @@ bun run preview
 
 ### React Compiler Setup
 
-The React Compiler is configured in `vite.config.js`:
+The React Compiler is configured in `vite.config.ts`:
 
-```javascript
+```typescript
 export default defineConfig({
   plugins: [
     react({
@@ -101,15 +102,16 @@ This script analyzes your components and reports:
 ```
 react-compiler-example/
 ├── src/
-│   ├── app.jsx                  # Main App component
-│   ├── main.jsx                 # Application entry point
-│   ├── CompiledComponent.jsx    # ✅ Example of compiler-optimized code
-│   └── UnCompiledComponent.jsx  # ❌ Example of non-compilable code
+│   ├── app.tsx                  # Main App component
+│   ├── main.tsx                 # Application entry point
+│   ├── CompiledComponent.tsx    # ✅ Example of compiler-optimized code
+│   └── UnCompiledComponent.tsx  # ❌ Example of non-compilable code
 ├── scripts/
 │   └── check-react-compiler.js  # Compiler verification script
 ├── public/                      # Static assets
-├── vite.config.js               # Vite configuration with React Compiler
+├── vite.config.ts               # Vite configuration with React Compiler
 ├── eslint.config.js             # ESLint configuration
+├── tsconfig.json                # TypeScript configuration
 └── package.json                 # Project dependencies and scripts
 ```
 
@@ -119,7 +121,7 @@ react-compiler-example/
 
 This component uses a clean async/await pattern:
 
-```jsx
+```tsx
 async function showConsoleLog() {
   let random = Math.random();
   try {
@@ -141,7 +143,7 @@ The React Compiler can optimize this because it follows a straightforward contro
 
 This component uses a `finally` block:
 
-```jsx
+```tsx
 async function showConsoleLog() {
   let random = Math.random();
   try {
