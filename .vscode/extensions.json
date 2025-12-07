@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "blazejkustra.react-compiler-marker",
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint"
+  ]
+}
