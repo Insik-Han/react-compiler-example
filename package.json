@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check:react-compiler": "node scripts/check-react-compiler.js src/app.jsx"
   },
   "dependencies": {
     "react": "^19.2.1",
