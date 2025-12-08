@@ -1,0 +1,16 @@
+{
+  "list": [
+    {
+      "id": 1,
+      "title": "React Compiler Example",
+      "info": {
+        "version": "1.0,0"
+      }
+    },
+    {
+      "id": 2,
+      "title": "Recently Edited Files",
+      "info": null
+    }
+  ]
+}

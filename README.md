@@ -8,12 +8,12 @@ This project showcases how to set up and use the React Compiler, an experimental
 
 ### What Makes This Example Special?
 
-This project includes two comparison components that demonstrate the React Compiler's behavior:
+This project includes comparison components that demonstrate the React Compiler's behavior:
 
-- **`CompiledComponent`**: A component that follows React Compiler rules and gets successfully optimized
-- **`UnCompiledComponent`**: A component that uses `return` statements in try/catch/finally blocks, which prevents compilation
+- **`OptimizedComponents/`**: Components that follow React Compiler rules and get successfully optimized
+- **`UnoptimizedComponents/`**: Components that use patterns which prevent compilation
 
-Both components have identical functionality (async button click with random number generation), but their different code patterns show what the React Compiler can and cannot optimize.
+Each pair of components has identical functionality but different code patterns, showing what the React Compiler can and cannot optimize.
 
 ## ✨ Features
 
@@ -102,35 +102,35 @@ This script analyzes your components and reports:
 ```
 react-compiler-example/
 ├── src/
-│   ├── app.tsx                  # Main App component
-│   ├── main.tsx                 # Application entry point
-│   ├── CompiledComponent.tsx    # ✅ Example of compiler-optimized code
-│   └── UnCompiledComponent.tsx  # ❌ Example of non-compilable code
+│   ├── app.tsx                   # Main App component
+│   ├── main.tsx                  # Application entry point
+│   ├── OptimizedComponents/      # ✅ Examples of compiler-optimized code
+│   └── UnoptimizedComponents/    # ❌ Examples of non-compilable code
 ├── scripts/
-│   └── check-react-compiler.js  # Compiler verification script
-├── public/                      # Static assets
-├── vite.config.ts               # Vite configuration with React Compiler
-├── eslint.config.js             # ESLint configuration
-├── tsconfig.json                # TypeScript configuration
-└── package.json                 # Project dependencies and scripts
+│   └── check-react-compiler.js   # Compiler verification script
+├── public/                       # Static assets
+├── vite.config.ts                # Vite configuration with React Compiler
+├── eslint.config.js              # ESLint configuration
+├── tsconfig.json                 # TypeScript configuration
+└── package.json                  # Project dependencies and scripts
 ```
 
 ## 🔍 Understanding the Examples
 
-### CompiledComponent (✅ Can be optimized)
+### Optimized (✅ Can be optimized)
 
 This component uses a clean async/await pattern:
 
 ```tsx
-async function showConsoleLog() {
-  let random = Math.random();
+async function generateRandom() {
+  const random = Math.random();
   try {
     await new Promise((resolve, reject) =>
-      random > 0.5 ? resolve() : reject(),
+      random > 0.5 ? resolve(undefined) : reject(),
     );
-    setMessage("try: UnCompiledComponent log");
+    setMessage("try: OptimizedFinallyCase log");
   } catch {
-    setMessage("catch: UnCompiledComponent log");
+    setMessage("catch: OptimizedFinallyCase log");
   }
 
   setRandomValue(random);
@@ -139,21 +139,21 @@ async function showConsoleLog() {
 
 The React Compiler can optimize this because it follows a straightforward control flow pattern.
 
-### UnCompiledComponent (❌ Cannot be optimized)
+### Unoptimized (❌ Cannot be optimized)
 
 This component uses a `finally` block:
 
 ```tsx
-async function showConsoleLog() {
-  let random = Math.random();
+async function generateRandom() {
+  const random = Math.random();
   try {
     await new Promise((resolve, reject) =>
-      random > 0.5 ? resolve() : reject(),
+      random > 0.5 ? resolve(undefined) : reject(),
     );
-    setMessage("try: UnCompiledComponent log");
+    setMessage("try: FinallyCase log");
     return;
   } catch {
-    setMessage("catch: UnCompiledComponent log");
+    setMessage("catch: FinallyCase log");
     return;
   } finally {
     setRandomValue(random); // ⚠️ finally block prevents compilation
